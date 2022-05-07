@@ -1,0 +1,7 @@
+type Query {
+  getGoogleAuthUrl: String!
+}
+
+type Mutation {
+  createGoogleUser(input: String!): String!
+}
