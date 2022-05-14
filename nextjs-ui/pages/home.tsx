@@ -2,7 +2,7 @@ import type { GetServerSidePropsContext, NextPage } from 'next'
 import { ReactElement } from 'react'
 import Link from 'next/link'
 
-import { validateCookieOrRedirect, validateJWT } from '../lib/validateCookie'
+import { validateCookieOrRedirect } from '../lib/validateCookie'
 import { useGetAllProjectsQuery } from '../generated/graphql-client'
 
 import LoggedInLayout from '../components/LoggedInLayout'
@@ -32,8 +32,6 @@ const HomePage: NextPage = () => {
   )
 }
 
-HomePage.getLayout = (page: ReactElement) => {
-  return <LoggedInLayout page={page} />
-}
+HomePage.getLayout = (page: ReactElement) => <LoggedInLayout page={page} />
 
 export default HomePage

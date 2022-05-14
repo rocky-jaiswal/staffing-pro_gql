@@ -1,4 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
+
+import { GRAPHQL_SERVER_URL } from '../../../lib/constants'
 import { validateJWT } from '../../../lib/validateCookie'
 
 export default async function handler(
@@ -14,7 +16,7 @@ export default async function handler(
 
     await validateJWT(token)
 
-    const response = await fetch('http://localhost:4000/graphql', {
+    const response = await fetch(GRAPHQL_SERVER_URL, {
       method: 'post',
       body: req.body,
       headers: {

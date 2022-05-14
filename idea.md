@@ -19,16 +19,21 @@ Entities
   - Attachments
   - Action Log
   - Change / Audit Log
-- Interests (combo of geog. / country / industry / vertical / company / skills / time)
-- Search by any attribute, geography, country etc.
-- Apply / Approve
 - Promoted (star)
+- Apply / Approve
 - Alerts
 - Hidden projects (visible by members only / url)
 - Starred projects
 - Create project
-- Search users / skills
-- Message users (alert user)
+- Message project users (alert user)
+
+Search
+- Search projects by any attribute, geography, country etc.
+- Search for users / skills
+
+Interest
+- Combo of geog. / country / industry / vertical / company / skills / time
+- Get alerts
 
 Project Page
 - Pagination

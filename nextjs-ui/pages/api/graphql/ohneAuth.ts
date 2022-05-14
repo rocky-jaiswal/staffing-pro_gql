@@ -1,5 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 
+import { GRAPHQL_SERVER_URL } from '../../../lib/constants'
 import setCookieToken from '../../../lib/setCookieToken'
 
 export default async function handler(
@@ -11,7 +12,7 @@ export default async function handler(
   }
 
   try {
-    const response = await fetch('http://localhost:4000/graphql', {
+    const response = await fetch(GRAPHQL_SERVER_URL, {
       method: 'post',
       body: req.body,
       headers: { 'Content-Type': 'application/json' },

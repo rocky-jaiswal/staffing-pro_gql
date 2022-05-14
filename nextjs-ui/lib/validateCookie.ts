@@ -1,7 +1,7 @@
 import jwt, { JwtHeader, JwtPayload } from 'jsonwebtoken'
 import jwksClient from 'jwks-rsa'
 
-const AUTH_SERVER_URL = 'http://localhost:3001'
+import { AUTH_SERVER_URL } from './constants'
 
 const client = jwksClient({
   jwksUri: `${AUTH_SERVER_URL}/.well-known/jwks.json`,

@@ -2,6 +2,7 @@ import type { GetServerSidePropsContext, NextPage } from 'next'
 import { useEffect } from 'react'
 import { useRouter } from 'next/router'
 
+import { GRAPHQL_SERVER_URL } from '../lib/constants'
 import setCookieToken from '../lib/setCookieToken'
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
@@ -12,7 +13,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
       throw new Error('bad Google code!')
     }
 
-    const response = await fetch('http://localhost:4000/graphql', {
+    const response = await fetch(GRAPHQL_SERVER_URL, {
       body: `{\"query\":\"mutation {\\n  createGoogleUser(\\n    input: \\\"${code}\\\"\\n  )\\n}\",\"variables\":null,\"extensions\":{\"headers\":null}}`,
       headers: {
         'Content-Type': 'application/json',
