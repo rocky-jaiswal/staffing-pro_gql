@@ -9,15 +9,9 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
         path: '/',
       }),
     ])
-
-    return {
-      redirect: {
-        destination: '/',
-        permanent: false,
-      },
-    }
   } catch (err) {
     console.log(err)
+  } finally {
     return {
       redirect: {
         destination: '/',
