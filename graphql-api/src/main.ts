@@ -22,7 +22,8 @@ const main = async () => {
         maxDepth: 5
       })
     ],
-    context: () => {
+    context: (/* { req }: { req: IncomingMessage } */) => {
+      // TODO: You can check for any headers here
       return { logger }
     }
   })

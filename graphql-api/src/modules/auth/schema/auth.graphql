@@ -1,7 +1,26 @@
+input DbSignUpInput {
+  email: String!
+  password: String!
+  confirmedPassword: String!
+}
+
+input SessionInput {
+  email: String!
+  password: String!
+}
+
 type Query {
   getGoogleAuthUrl: String!
 }
 
 type Mutation {
   createGoogleUser(input: String!): String!
+}
+
+type Mutation {
+  createDBSignUp(input: DbSignUpInput!): String!
+}
+
+type Mutation {
+  createSession(input: SessionInput!): String!
 }

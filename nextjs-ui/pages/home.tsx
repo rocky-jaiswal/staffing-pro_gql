@@ -1,12 +1,22 @@
+import type { GetServerSidePropsContext, NextPage } from 'next'
 import { ReactElement } from 'react'
-import type { NextPage } from 'next'
-
 import Link from 'next/link'
+
+import { validateCookieOrRedirect, validateJWT } from '../lib/validateCookie'
+import { useGetAllProjectsQuery } from '../generated/graphql-client'
 
 import NavBar from '../components/NavBar'
 import TopBar from '../components/TopBar'
 
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+  return validateCookieOrRedirect(context.req.cookies['token'])
+}
+
 const HomePage: NextPage = () => {
+  const { data, status } = useGetAllProjectsQuery({
+    endpoint: '/api/graphql/withAuth',
+  })
+
   return (
     <>
       <h1>HomePage</h1>

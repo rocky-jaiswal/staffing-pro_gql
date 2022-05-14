@@ -1,63 +1,33 @@
 import { useEffect, useState } from 'react'
+import { useRouter } from 'next/router'
 import Link from 'next/link'
 
-// import { useAuth } from '@redwoodjs/auth'
-// import { useMutation } from '@redwoodjs/web'
-// import { toast, Toaster } from '@redwoodjs/web/toast'
-// import { Link, routes, navigate } from '@redwoodjs/router'
-
-// import { SessionInput } from 'types/client'
+import {
+  SessionInput,
+  useCreateSessionMutation,
+} from '../../generated/graphql-client'
 
 interface Props {
   display: boolean
 }
 
-// const CREATE_SESSION = gql`
-//   mutation createSession($input: SessionInput!) {
-//     createSession(input: $input)
-//   }
-// `
-
 function LoginForm(props: Props) {
   const [email, setEmail] = useState<string | null>(null)
   const [password, setPassword] = useState<string | null>(null)
-  const [signedIn, setSignedIn] = useState<boolean | null>(false)
 
-  // const { isAuthenticated, logIn } = useAuth()
+  const router = useRouter()
+  const { mutate, status, isLoading } = useCreateSessionMutation({
+    endpoint: '/api/graphql/ohneAuth',
+  })
 
-  // useEffect(() => {
-  //   if (isAuthenticated) {
-  //     navigate(routes.home())
-  //   }
-  // }, [isAuthenticated])
-
-  // useEffect(() => {
-  //   if (signedIn) {
-  //     const reAuth = async () => {
-  //       await logIn()
-  //       return {}
-  //     }
-
-  //     reAuth().catch(console.error)
-  //   }
-  // }, [signedIn, logIn])
-
-  // const [createSession, { loading }] = useMutation(CREATE_SESSION, {
-  //   onCompleted: (data: Record<string, string>) => {
-  //     setSignedIn(true)
-  //     toast.success('Signing in ...')
-  //     sessionStorage.setItem('token', data.createSession)
-  //     navigate(routes.home())
-  //   },
-  //   onError: () => {
-  //     toast.error('Oops! Something went wrong ...')
-  //   },
-  // })
-
-  const handleSubmit = (input: unknown) => {
-    if (!signedIn) {
-      // createSession({ variables: { input } })
+  useEffect(() => {
+    if (status === 'success') {
+      router.push('/home')
     }
+  }, [status, router])
+
+  const handleSubmit = (input: { input: SessionInput }) => {
+    mutate(input)
   }
 
   return (
@@ -87,11 +57,11 @@ function LoginForm(props: Props) {
         <button
           type="submit"
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+          disabled={isLoading}
           onClick={(e) => {
             e.preventDefault()
-            handleSubmit({ email, password })
+            handleSubmit({ input: { email: email!, password: password! } })
           }}
-          // disabled={loading}
         >
           Submit
         </button>

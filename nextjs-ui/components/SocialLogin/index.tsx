@@ -5,7 +5,7 @@ function SocialLogin() {
   // const queryClient = useQueryClient()
   const { data, refetch, status } = useGetGoogleAuthUrlQuery(
     {
-      endpoint: 'http://localhost:4000/graphql',
+      endpoint: '/api/graphql/passThrough',
     },
     undefined,
     { enabled: false }

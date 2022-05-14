@@ -2,7 +2,8 @@ import type { IncomingMessage, ServerResponse } from 'http'
 import { Logger } from 'pino'
 
 export type UserType = {
-  id: string
+  id?: string
+  email?: string
 }
 
 export type GraphQLContext = {

@@ -4,6 +4,7 @@ export type InputMaybe<T> = Maybe<T>
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] }
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> }
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> }
+export type RequireFields<T, K extends keyof T> = Omit<T, K> & { [P in K]-?: NonNullable<T[P]> }
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string
@@ -13,9 +14,40 @@ export type Scalars = {
   Float: number
 }
 
+export type DbSignUpInput = {
+  confirmedPassword: Scalars['String']
+  email: Scalars['String']
+  password: Scalars['String']
+}
+
+export type Mutation = {
+  __typename?: 'Mutation'
+  createDBSignUp: Scalars['String']
+  createGoogleUser: Scalars['String']
+  createSession: Scalars['String']
+}
+
+export type MutationCreateDbSignUpArgs = {
+  input: DbSignUpInput
+}
+
+export type MutationCreateGoogleUserArgs = {
+  input: Scalars['String']
+}
+
+export type MutationCreateSessionArgs = {
+  input: SessionInput
+}
+
 export type Query = {
   __typename?: 'Query'
+  getAllProjects: Array<Scalars['String']>
   getGoogleAuthUrl: Scalars['String']
+}
+
+export type SessionInput = {
+  email: Scalars['String']
+  password: Scalars['String']
 }
 
 export type ResolverTypeWrapper<T> = Promise<T> | T
@@ -103,24 +135,56 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>
+  DbSignUpInput: DbSignUpInput
+  Mutation: ResolverTypeWrapper<{}>
   Query: ResolverTypeWrapper<{}>
+  SessionInput: SessionInput
   String: ResolverTypeWrapper<Scalars['String']>
 }
 
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
   Boolean: Scalars['Boolean']
+  DbSignUpInput: DbSignUpInput
+  Mutation: {}
   Query: {}
+  SessionInput: SessionInput
   String: Scalars['String']
+}
+
+export type MutationResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']
+> = {
+  createDBSignUp?: Resolver<
+    ResolversTypes['String'],
+    ParentType,
+    ContextType,
+    RequireFields<MutationCreateDbSignUpArgs, 'input'>
+  >
+  createGoogleUser?: Resolver<
+    ResolversTypes['String'],
+    ParentType,
+    ContextType,
+    RequireFields<MutationCreateGoogleUserArgs, 'input'>
+  >
+  createSession?: Resolver<
+    ResolversTypes['String'],
+    ParentType,
+    ContextType,
+    RequireFields<MutationCreateSessionArgs, 'input'>
+  >
 }
 
 export type QueryResolvers<
   ContextType = any,
   ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']
 > = {
+  getAllProjects?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>
   getGoogleAuthUrl?: Resolver<ResolversTypes['String'], ParentType, ContextType>
 }
 
 export type Resolvers<ContextType = any> = {
+  Mutation?: MutationResolvers<ContextType>
   Query?: QueryResolvers<ContextType>
 }

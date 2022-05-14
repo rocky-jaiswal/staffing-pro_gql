@@ -1,0 +1,11 @@
+mutation CreateGoogleUser($input: String!) {
+  createGoogleUser(input: $input)
+}
+
+mutation CreateDBSignUp($input: DbSignUpInput!) {
+  createDBSignUp(input: $input)
+}
+
+mutation CreateSession($input: SessionInput!) {
+  createSession(input: $input)
+}
