@@ -5,8 +5,7 @@ import Link from 'next/link'
 import { validateCookieOrRedirect, validateJWT } from '../lib/validateCookie'
 import { useGetAllProjectsQuery } from '../generated/graphql-client'
 
-import NavBar from '../components/NavBar'
-import TopBar from '../components/TopBar'
+import LoggedInLayout from '../components/LoggedInLayout'
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   return validateCookieOrRedirect(context.req.cookies['token'])
@@ -16,6 +15,8 @@ const HomePage: NextPage = () => {
   const { data, status } = useGetAllProjectsQuery({
     endpoint: '/api/graphql/withAuth',
   })
+
+  console.log({ data, status })
 
   return (
     <>
@@ -31,20 +32,8 @@ const HomePage: NextPage = () => {
   )
 }
 
-HomePage.getLayout = function getLayout(page: ReactElement) {
-  return (
-    <>
-      <div className="flex flex-col min-h-screen text-slate-700">
-        <TopBar />
-        <div className="flex flex-col-reverse lg:flex-row grow h-full w-full">
-          <NavBar />
-          <main role="main" className="flex flex-col grow p-6">
-            {page}
-          </main>
-        </div>
-      </div>
-    </>
-  )
+HomePage.getLayout = (page: ReactElement) => {
+  return <LoggedInLayout page={page} />
 }
 
 export default HomePage

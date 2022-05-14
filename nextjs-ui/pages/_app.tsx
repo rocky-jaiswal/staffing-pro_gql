@@ -1,9 +1,9 @@
 import '../styles/globals.css'
 
 import { ReactElement, ReactNode, useState } from 'react'
+import { QueryClient, QueryClientProvider } from 'react-query'
 import type { NextPage } from 'next'
 import type { AppProps } from 'next/app'
-import { QueryClient, QueryClientProvider } from 'react-query'
 
 type NextPageWithLayout = NextPage & {
   getLayout?: (page: ReactElement) => ReactNode
@@ -16,7 +16,7 @@ type AppPropsWithLayout = AppProps & {
 function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   const [queryClient] = useState(() => new QueryClient())
 
-  const getLayout = Component.getLayout ?? ((page) => page)
+  const getLayout = Component.getLayout ?? ((page: ReactNode) => page)
 
   return getLayout(
     <QueryClientProvider client={queryClient}>
