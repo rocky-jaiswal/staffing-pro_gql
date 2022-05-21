@@ -4,10 +4,10 @@ import { ReactElement, useState } from 'react'
 
 import Image from 'next/image'
 
-import Footer from '../components/Footer'
 import LoginForm from '../components/LoginForm'
 import SocialLogin from '../components/SocialLogin'
 import RegistrationForm from '../components/RegistrationForm'
+import DefaultLayout from '../components/DefaultLayout'
 
 const RootPage: NextPage = () => {
   const [display, setDisplay] = useState({ showLogin: true })
@@ -66,17 +66,6 @@ const RootPage: NextPage = () => {
   )
 }
 
-RootPage.getLayout = function getLayout(page: ReactElement) {
-  return (
-    <>
-      <div className="flex flex-col h-screen">
-        <main role="main" className="flex flex-auto min-w-full">
-          {page}
-        </main>
-        <Footer />
-      </div>
-    </>
-  )
-}
+RootPage.getLayout = (page: ReactElement) => <DefaultLayout page={page} />
 
 export default RootPage

@@ -12,7 +12,7 @@ function TopBar() {
   }, [router, isLoggedOut])
 
   return (
-    <div className="navbar bg-base-300 flex justify-between">
+    <div className="navbar bg-base-200 flex justify-between">
       <div className="p-6">
         <h1 className="text-lg font-bold">Staffing Pro</h1>
       </div>

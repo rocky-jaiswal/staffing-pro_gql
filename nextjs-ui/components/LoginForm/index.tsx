@@ -32,7 +32,7 @@ function LoginForm(props: Props) {
 
   return (
     <div
-      className="flex flex-col p-4"
+      className="flex flex-col p-4 lg:w-2/3"
       style={props.display ? { display: 'flex' } : { display: 'none' }}
     >
       <form method="post">
