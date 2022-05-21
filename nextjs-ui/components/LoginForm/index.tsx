@@ -41,7 +41,7 @@ function LoginForm(props: Props) {
           <input
             type="email"
             name="email"
-            className="border border-sky-900"
+            className="input"
             onChange={(e) => setEmail(e.currentTarget.value)}
           />
         </div>
@@ -50,13 +50,13 @@ function LoginForm(props: Props) {
           <input
             type="password"
             name="password"
-            className="border border-sky-900"
+            className="input"
             onChange={(e) => setPassword(e.currentTarget.value)}
           />
         </div>
         <button
           type="submit"
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+          className="btn btn-primary"
           disabled={isLoading}
           onClick={(e) => {
             e.preventDefault()

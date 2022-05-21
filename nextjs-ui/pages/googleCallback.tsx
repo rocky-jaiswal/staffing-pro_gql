@@ -23,6 +23,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     })
 
     const responseBody = (await response.json()) as any
+
     const token = responseBody.data.createGoogleUser
 
     setCookieToken(context.res, token)

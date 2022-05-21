@@ -34,7 +34,7 @@ function RegistrationForm(props: Props) {
 
   return (
     <div
-      className="flex p-4"
+      className="flex flex-col p-4"
       style={props.display ? { display: 'flex' } : { display: 'none' }}
     >
       <form>
@@ -43,7 +43,7 @@ function RegistrationForm(props: Props) {
           <input
             type="email"
             name="email"
-            className="border border-sky-900"
+            className="input"
             onChange={(e) => setEmail(e.currentTarget.value)}
           />
         </div>
@@ -52,7 +52,7 @@ function RegistrationForm(props: Props) {
           <input
             type="password"
             name="password"
-            className="border border-sky-900"
+            className="input"
             onChange={(e) => setPassword(e.currentTarget.value)}
           />
         </div>
@@ -61,13 +61,13 @@ function RegistrationForm(props: Props) {
           <input
             type="password"
             name="confirmPassword"
-            className="border border-sky-900"
+            className="input"
             onChange={(e) => setConfirmedPassword(e.currentTarget.value)}
           />
         </div>
         <button
           type="submit"
-          className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+          className="btn btn-accent"
           disabled={isLoading}
           onClick={(e) => {
             e.preventDefault()
