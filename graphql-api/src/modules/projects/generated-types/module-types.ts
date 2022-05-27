@@ -1,8 +1,8 @@
-import * as Types from '../../../generated/graphql'
+import * as Types from '../../../generated/graphql-client'
 import * as gm from 'graphql-modules'
 export namespace ProjectsModule {
   interface DefinedFields {
-    Query: 'getAllProjects' | 'getAllGeographies'
+    Query: 'getAllGeographies'
   }
 
   export type Query = Pick<Types.Query, DefinedFields['Query']>
@@ -19,7 +19,6 @@ export namespace ProjectsModule {
     }
     Query?: {
       '*'?: gm.Middleware[]
-      getAllProjects?: gm.Middleware[]
       getAllGeographies?: gm.Middleware[]
     }
   }

@@ -10,7 +10,7 @@ generates:
     plugins:
       - "typescript"
       - "typescript-operations"
-      # - "typescript-resolvers"
+      - "typescript-resolvers"
       - "typescript-react-query"
     config:
       fetcher: fetch

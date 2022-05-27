@@ -14,7 +14,7 @@ datasource db {
 model Geography {
   id      Int       @id @default(autoincrement())
   name    String    @unique
-  Country Country[]
+  country Country[]
 }
 
 model Country {
@@ -23,4 +23,19 @@ model Country {
   code        String    @unique
   geography   Geography @relation(fields: [geographyId], references: [id])
   geographyId Int
+}
+
+model Industry {
+  id   Int    @id @default(autoincrement())
+  name String @unique
+}
+
+model Verticals {
+  id   Int    @id @default(autoincrement())
+  name String @unique
+}
+
+model Company {
+  id   Int    @id @default(autoincrement())
+  name String @unique
 }

@@ -1,3 +1,4 @@
+import { GraphQLResolveInfo } from 'graphql'
 import {
   useMutation,
   useQuery,
@@ -14,6 +15,9 @@ export type MakeOptional<T, K extends keyof T> = Omit<T, K> & {
 }
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & {
   [SubKey in K]: Maybe<T[SubKey]>
+}
+export type RequireFields<T, K extends keyof T> = Omit<T, K> & {
+  [P in K]-?: NonNullable<T[P]>
 }
 
 function fetcher<TData, TVariables>(
@@ -76,7 +80,7 @@ export type MutationCreateSessionArgs = {
 
 export type Query = {
   __typename?: 'Query'
-  getAllProjects: Array<Scalars['String']>
+  getAllGeographies: Array<Scalars['String']>
   getGoogleAuthUrl: Scalars['String']
 }
 
@@ -119,11 +123,177 @@ export type GetGoogleAuthUrlQuery = {
   getGoogleAuthUrl: string
 }
 
-export type GetAllProjectsQueryVariables = Exact<{ [key: string]: never }>
+export type GetAllGeographiesQueryVariables = Exact<{ [key: string]: never }>
 
-export type GetAllProjectsQuery = {
+export type GetAllGeographiesQuery = {
   __typename?: 'Query'
-  getAllProjects: Array<string>
+  getAllGeographies: Array<string>
+}
+
+export type ResolverTypeWrapper<T> = Promise<T> | T
+
+export type ResolverWithResolve<TResult, TParent, TContext, TArgs> = {
+  resolve: ResolverFn<TResult, TParent, TContext, TArgs>
+}
+export type Resolver<TResult, TParent = {}, TContext = {}, TArgs = {}> =
+  | ResolverFn<TResult, TParent, TContext, TArgs>
+  | ResolverWithResolve<TResult, TParent, TContext, TArgs>
+
+export type ResolverFn<TResult, TParent, TContext, TArgs> = (
+  parent: TParent,
+  args: TArgs,
+  context: TContext,
+  info: GraphQLResolveInfo
+) => Promise<TResult> | TResult
+
+export type SubscriptionSubscribeFn<TResult, TParent, TContext, TArgs> = (
+  parent: TParent,
+  args: TArgs,
+  context: TContext,
+  info: GraphQLResolveInfo
+) => AsyncIterable<TResult> | Promise<AsyncIterable<TResult>>
+
+export type SubscriptionResolveFn<TResult, TParent, TContext, TArgs> = (
+  parent: TParent,
+  args: TArgs,
+  context: TContext,
+  info: GraphQLResolveInfo
+) => TResult | Promise<TResult>
+
+export interface SubscriptionSubscriberObject<
+  TResult,
+  TKey extends string,
+  TParent,
+  TContext,
+  TArgs
+> {
+  subscribe: SubscriptionSubscribeFn<
+    { [key in TKey]: TResult },
+    TParent,
+    TContext,
+    TArgs
+  >
+  resolve?: SubscriptionResolveFn<
+    TResult,
+    { [key in TKey]: TResult },
+    TContext,
+    TArgs
+  >
+}
+
+export interface SubscriptionResolverObject<TResult, TParent, TContext, TArgs> {
+  subscribe: SubscriptionSubscribeFn<any, TParent, TContext, TArgs>
+  resolve: SubscriptionResolveFn<TResult, any, TContext, TArgs>
+}
+
+export type SubscriptionObject<
+  TResult,
+  TKey extends string,
+  TParent,
+  TContext,
+  TArgs
+> =
+  | SubscriptionSubscriberObject<TResult, TKey, TParent, TContext, TArgs>
+  | SubscriptionResolverObject<TResult, TParent, TContext, TArgs>
+
+export type SubscriptionResolver<
+  TResult,
+  TKey extends string,
+  TParent = {},
+  TContext = {},
+  TArgs = {}
+> =
+  | ((
+      ...args: any[]
+    ) => SubscriptionObject<TResult, TKey, TParent, TContext, TArgs>)
+  | SubscriptionObject<TResult, TKey, TParent, TContext, TArgs>
+
+export type TypeResolveFn<TTypes, TParent = {}, TContext = {}> = (
+  parent: TParent,
+  context: TContext,
+  info: GraphQLResolveInfo
+) => Maybe<TTypes> | Promise<Maybe<TTypes>>
+
+export type IsTypeOfResolverFn<T = {}, TContext = {}> = (
+  obj: T,
+  context: TContext,
+  info: GraphQLResolveInfo
+) => boolean | Promise<boolean>
+
+export type NextResolverFn<T> = () => Promise<T>
+
+export type DirectiveResolverFn<
+  TResult = {},
+  TParent = {},
+  TContext = {},
+  TArgs = {}
+> = (
+  next: NextResolverFn<TResult>,
+  parent: TParent,
+  args: TArgs,
+  context: TContext,
+  info: GraphQLResolveInfo
+) => TResult | Promise<TResult>
+
+/** Mapping between all available schema types and the resolvers types */
+export type ResolversTypes = {
+  Boolean: ResolverTypeWrapper<Scalars['Boolean']>
+  DbSignUpInput: DbSignUpInput
+  Mutation: ResolverTypeWrapper<{}>
+  Query: ResolverTypeWrapper<{}>
+  SessionInput: SessionInput
+  String: ResolverTypeWrapper<Scalars['String']>
+}
+
+/** Mapping between all available schema types and the resolvers parents */
+export type ResolversParentTypes = {
+  Boolean: Scalars['Boolean']
+  DbSignUpInput: DbSignUpInput
+  Mutation: {}
+  Query: {}
+  SessionInput: SessionInput
+  String: Scalars['String']
+}
+
+export type MutationResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']
+> = {
+  createDBSignUp?: Resolver<
+    ResolversTypes['String'],
+    ParentType,
+    ContextType,
+    RequireFields<MutationCreateDbSignUpArgs, 'input'>
+  >
+  createGoogleUser?: Resolver<
+    ResolversTypes['String'],
+    ParentType,
+    ContextType,
+    RequireFields<MutationCreateGoogleUserArgs, 'input'>
+  >
+  createSession?: Resolver<
+    ResolversTypes['String'],
+    ParentType,
+    ContextType,
+    RequireFields<MutationCreateSessionArgs, 'input'>
+  >
+}
+
+export type QueryResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']
+> = {
+  getAllGeographies?: Resolver<
+    Array<ResolversTypes['String']>,
+    ParentType,
+    ContextType
+  >
+  getGoogleAuthUrl?: Resolver<ResolversTypes['String'], ParentType, ContextType>
+}
+
+export type Resolvers<ContextType = any> = {
+  Mutation?: MutationResolvers<ContextType>
+  Query?: QueryResolvers<ContextType>
 }
 
 export const CreateGoogleUserDocument = `
@@ -244,27 +414,27 @@ export const useGetGoogleAuthUrlQuery = <
     ),
     options
   )
-export const GetAllProjectsDocument = `
-    query GetAllProjects {
-  getAllProjects
+export const GetAllGeographiesDocument = `
+    query GetAllGeographies {
+  getAllGeographies
 }
     `
-export const useGetAllProjectsQuery = <
-  TData = GetAllProjectsQuery,
+export const useGetAllGeographiesQuery = <
+  TData = GetAllGeographiesQuery,
   TError = unknown
 >(
   dataSource: { endpoint: string; fetchParams?: RequestInit },
-  variables?: GetAllProjectsQueryVariables,
-  options?: UseQueryOptions<GetAllProjectsQuery, TError, TData>
+  variables?: GetAllGeographiesQueryVariables,
+  options?: UseQueryOptions<GetAllGeographiesQuery, TError, TData>
 ) =>
-  useQuery<GetAllProjectsQuery, TError, TData>(
+  useQuery<GetAllGeographiesQuery, TError, TData>(
     variables === undefined
-      ? ['GetAllProjects']
-      : ['GetAllProjects', variables],
-    fetcher<GetAllProjectsQuery, GetAllProjectsQueryVariables>(
+      ? ['GetAllGeographies']
+      : ['GetAllGeographies', variables],
+    fetcher<GetAllGeographiesQuery, GetAllGeographiesQueryVariables>(
       dataSource.endpoint,
       dataSource.fetchParams || {},
-      GetAllProjectsDocument,
+      GetAllGeographiesDocument,
       variables
     ),
     options

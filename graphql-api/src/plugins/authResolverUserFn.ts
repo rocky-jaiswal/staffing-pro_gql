@@ -27,7 +27,7 @@ const resolveUserFn: ResolveUserFn<UserType> = async (context) => {
   if (authHeader) {
     // TODO: Handle failure here
     const userDetails = await getUserFromToken(authHeader)
-    console.log(userDetails)
+    // console.log(userDetails)
     return { id: userDetails.userId, email: userDetails.email }
   }
   return {}

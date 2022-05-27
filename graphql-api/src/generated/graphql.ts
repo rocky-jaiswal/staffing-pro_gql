@@ -1,129 +1,116 @@
-import { GraphQLResolveInfo } from 'graphql'
-export type Maybe<T> = T | null
-export type InputMaybe<T> = Maybe<T>
-export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] }
-export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> }
-export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> }
-export type RequireFields<T, K extends keyof T> = Omit<T, K> & { [P in K]-?: NonNullable<T[P]> }
+import { GraphQLResolveInfo } from 'graphql';
+export type Maybe<T> = T | null;
+export type InputMaybe<T> = Maybe<T>;
+export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
+export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
+export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
+export type RequireFields<T, K extends keyof T> = Omit<T, K> & { [P in K]-?: NonNullable<T[P]> };
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
-  ID: string
-  String: string
-  Boolean: boolean
-  Int: number
-  Float: number
-}
+  ID: string;
+  String: string;
+  Boolean: boolean;
+  Int: number;
+  Float: number;
+};
 
 export type DbSignUpInput = {
-  confirmedPassword: Scalars['String']
-  email: Scalars['String']
-  password: Scalars['String']
-}
+  confirmedPassword: Scalars['String'];
+  email: Scalars['String'];
+  password: Scalars['String'];
+};
 
 export type Mutation = {
-  __typename?: 'Mutation'
-  createDBSignUp: Scalars['String']
-  createGoogleUser: Scalars['String']
-  createSession: Scalars['String']
-}
+  __typename?: 'Mutation';
+  createDBSignUp: Scalars['String'];
+  createGoogleUser: Scalars['String'];
+  createSession: Scalars['String'];
+};
+
 
 export type MutationCreateDbSignUpArgs = {
-  input: DbSignUpInput
-}
+  input: DbSignUpInput;
+};
+
 
 export type MutationCreateGoogleUserArgs = {
-  input: Scalars['String']
-}
+  input: Scalars['String'];
+};
+
 
 export type MutationCreateSessionArgs = {
-  input: SessionInput
-}
+  input: SessionInput;
+};
 
 export type Query = {
-  __typename?: 'Query'
-  getAllGeographies: Array<Scalars['String']>
-  getAllProjects: Array<Scalars['String']>
-  getGoogleAuthUrl: Scalars['String']
-}
+  __typename?: 'Query';
+  getAllGeographies: Array<Scalars['String']>;
+  getGoogleAuthUrl: Scalars['String'];
+};
 
 export type SessionInput = {
-  email: Scalars['String']
-  password: Scalars['String']
-}
+  email: Scalars['String'];
+  password: Scalars['String'];
+};
 
-export type ResolverTypeWrapper<T> = Promise<T> | T
+
+
+export type ResolverTypeWrapper<T> = Promise<T> | T;
+
 
 export type ResolverWithResolve<TResult, TParent, TContext, TArgs> = {
-  resolve: ResolverFn<TResult, TParent, TContext, TArgs>
-}
-export type Resolver<TResult, TParent = {}, TContext = {}, TArgs = {}> =
-  | ResolverFn<TResult, TParent, TContext, TArgs>
-  | ResolverWithResolve<TResult, TParent, TContext, TArgs>
+  resolve: ResolverFn<TResult, TParent, TContext, TArgs>;
+};
+export type Resolver<TResult, TParent = {}, TContext = {}, TArgs = {}> = ResolverFn<TResult, TParent, TContext, TArgs> | ResolverWithResolve<TResult, TParent, TContext, TArgs>;
 
 export type ResolverFn<TResult, TParent, TContext, TArgs> = (
   parent: TParent,
   args: TArgs,
   context: TContext,
   info: GraphQLResolveInfo
-) => Promise<TResult> | TResult
+) => Promise<TResult> | TResult;
 
 export type SubscriptionSubscribeFn<TResult, TParent, TContext, TArgs> = (
   parent: TParent,
   args: TArgs,
   context: TContext,
   info: GraphQLResolveInfo
-) => AsyncIterable<TResult> | Promise<AsyncIterable<TResult>>
+) => AsyncIterable<TResult> | Promise<AsyncIterable<TResult>>;
 
 export type SubscriptionResolveFn<TResult, TParent, TContext, TArgs> = (
   parent: TParent,
   args: TArgs,
   context: TContext,
   info: GraphQLResolveInfo
-) => TResult | Promise<TResult>
+) => TResult | Promise<TResult>;
 
-export interface SubscriptionSubscriberObject<
-  TResult,
-  TKey extends string,
-  TParent,
-  TContext,
-  TArgs
-> {
-  subscribe: SubscriptionSubscribeFn<{ [key in TKey]: TResult }, TParent, TContext, TArgs>
-  resolve?: SubscriptionResolveFn<TResult, { [key in TKey]: TResult }, TContext, TArgs>
+export interface SubscriptionSubscriberObject<TResult, TKey extends string, TParent, TContext, TArgs> {
+  subscribe: SubscriptionSubscribeFn<{ [key in TKey]: TResult }, TParent, TContext, TArgs>;
+  resolve?: SubscriptionResolveFn<TResult, { [key in TKey]: TResult }, TContext, TArgs>;
 }
 
 export interface SubscriptionResolverObject<TResult, TParent, TContext, TArgs> {
-  subscribe: SubscriptionSubscribeFn<any, TParent, TContext, TArgs>
-  resolve: SubscriptionResolveFn<TResult, any, TContext, TArgs>
+  subscribe: SubscriptionSubscribeFn<any, TParent, TContext, TArgs>;
+  resolve: SubscriptionResolveFn<TResult, any, TContext, TArgs>;
 }
 
 export type SubscriptionObject<TResult, TKey extends string, TParent, TContext, TArgs> =
   | SubscriptionSubscriberObject<TResult, TKey, TParent, TContext, TArgs>
-  | SubscriptionResolverObject<TResult, TParent, TContext, TArgs>
+  | SubscriptionResolverObject<TResult, TParent, TContext, TArgs>;
 
-export type SubscriptionResolver<
-  TResult,
-  TKey extends string,
-  TParent = {},
-  TContext = {},
-  TArgs = {}
-> =
+export type SubscriptionResolver<TResult, TKey extends string, TParent = {}, TContext = {}, TArgs = {}> =
   | ((...args: any[]) => SubscriptionObject<TResult, TKey, TParent, TContext, TArgs>)
-  | SubscriptionObject<TResult, TKey, TParent, TContext, TArgs>
+  | SubscriptionObject<TResult, TKey, TParent, TContext, TArgs>;
 
 export type TypeResolveFn<TTypes, TParent = {}, TContext = {}> = (
   parent: TParent,
   context: TContext,
   info: GraphQLResolveInfo
-) => Maybe<TTypes> | Promise<Maybe<TTypes>>
+) => Maybe<TTypes> | Promise<Maybe<TTypes>>;
 
-export type IsTypeOfResolverFn<T = {}, TContext = {}> = (
-  obj: T,
-  context: TContext,
-  info: GraphQLResolveInfo
-) => boolean | Promise<boolean>
+export type IsTypeOfResolverFn<T = {}, TContext = {}> = (obj: T, context: TContext, info: GraphQLResolveInfo) => boolean | Promise<boolean>;
 
-export type NextResolverFn<T> = () => Promise<T>
+export type NextResolverFn<T> = () => Promise<T>;
 
 export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs = {}> = (
   next: NextResolverFn<TResult>,
@@ -131,62 +118,41 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
   args: TArgs,
   context: TContext,
   info: GraphQLResolveInfo
-) => TResult | Promise<TResult>
+) => TResult | Promise<TResult>;
 
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
-  Boolean: ResolverTypeWrapper<Scalars['Boolean']>
-  DbSignUpInput: DbSignUpInput
-  Mutation: ResolverTypeWrapper<{}>
-  Query: ResolverTypeWrapper<{}>
-  SessionInput: SessionInput
-  String: ResolverTypeWrapper<Scalars['String']>
-}
+  Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
+  DbSignUpInput: DbSignUpInput;
+  Mutation: ResolverTypeWrapper<{}>;
+  Query: ResolverTypeWrapper<{}>;
+  SessionInput: SessionInput;
+  String: ResolverTypeWrapper<Scalars['String']>;
+};
 
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
-  Boolean: Scalars['Boolean']
-  DbSignUpInput: DbSignUpInput
-  Mutation: {}
-  Query: {}
-  SessionInput: SessionInput
-  String: Scalars['String']
-}
+  Boolean: Scalars['Boolean'];
+  DbSignUpInput: DbSignUpInput;
+  Mutation: {};
+  Query: {};
+  SessionInput: SessionInput;
+  String: Scalars['String'];
+};
 
-export type MutationResolvers<
-  ContextType = any,
-  ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']
-> = {
-  createDBSignUp?: Resolver<
-    ResolversTypes['String'],
-    ParentType,
-    ContextType,
-    RequireFields<MutationCreateDbSignUpArgs, 'input'>
-  >
-  createGoogleUser?: Resolver<
-    ResolversTypes['String'],
-    ParentType,
-    ContextType,
-    RequireFields<MutationCreateGoogleUserArgs, 'input'>
-  >
-  createSession?: Resolver<
-    ResolversTypes['String'],
-    ParentType,
-    ContextType,
-    RequireFields<MutationCreateSessionArgs, 'input'>
-  >
-}
+export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
+  createDBSignUp?: Resolver<ResolversTypes['String'], ParentType, ContextType, RequireFields<MutationCreateDbSignUpArgs, 'input'>>;
+  createGoogleUser?: Resolver<ResolversTypes['String'], ParentType, ContextType, RequireFields<MutationCreateGoogleUserArgs, 'input'>>;
+  createSession?: Resolver<ResolversTypes['String'], ParentType, ContextType, RequireFields<MutationCreateSessionArgs, 'input'>>;
+};
 
-export type QueryResolvers<
-  ContextType = any,
-  ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']
-> = {
-  getAllGeographies?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>
-  getAllProjects?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>
-  getGoogleAuthUrl?: Resolver<ResolversTypes['String'], ParentType, ContextType>
-}
+export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
+  getAllGeographies?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>;
+  getGoogleAuthUrl?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+};
 
 export type Resolvers<ContextType = any> = {
-  Mutation?: MutationResolvers<ContextType>
-  Query?: QueryResolvers<ContextType>
-}
+  Mutation?: MutationResolvers<ContextType>;
+  Query?: QueryResolvers<ContextType>;
+};
+

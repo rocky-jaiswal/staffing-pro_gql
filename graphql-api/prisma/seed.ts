@@ -4,6 +4,7 @@ const prisma = new PrismaClient()
 
 async function main() {
   console.log('Start seeding ...')
+  await prisma.geography.deleteMany({})
   await prisma.geography.createMany({
     data: [
       { name: 'North America' },

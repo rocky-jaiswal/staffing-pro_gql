@@ -3,7 +3,7 @@ import { ReactElement } from 'react'
 import Link from 'next/link'
 
 import { validateCookieOrRedirect } from '../lib/validateCookie'
-import { useGetAllProjectsQuery } from '../generated/graphql-client'
+import { useGetAllGeographiesQuery } from '../generated/graphql-client'
 
 import LoggedInLayout from '../components/LoggedInLayout'
 
@@ -12,7 +12,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 }
 
 const HomePage: NextPage = () => {
-  const { data, status } = useGetAllProjectsQuery({
+  const { data, status } = useGetAllGeographiesQuery({
     endpoint: '/api/graphql/withAuth',
   })
 
