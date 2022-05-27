@@ -1,3 +1,4 @@
+import { PrismaClient } from '@prisma/client'
 import type { IncomingMessage, ServerResponse } from 'http'
 import { Logger } from 'pino'
 
@@ -11,4 +12,5 @@ export type GraphQLContext = {
   res: ServerResponse
   logger: Logger
   currentUser: UserType
+  prisma: PrismaClient
 }

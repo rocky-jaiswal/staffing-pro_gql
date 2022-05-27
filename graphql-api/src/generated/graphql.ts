@@ -41,6 +41,7 @@ export type MutationCreateSessionArgs = {
 
 export type Query = {
   __typename?: 'Query'
+  getAllGeographies: Array<Scalars['String']>
   getAllProjects: Array<Scalars['String']>
   getGoogleAuthUrl: Scalars['String']
 }
@@ -180,6 +181,7 @@ export type QueryResolvers<
   ContextType = any,
   ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']
 > = {
+  getAllGeographies?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>
   getAllProjects?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>
   getGoogleAuthUrl?: Resolver<ResolversTypes['String'], ParentType, ContextType>
 }

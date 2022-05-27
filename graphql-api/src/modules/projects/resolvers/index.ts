@@ -5,6 +5,10 @@ const resolvers: ProjectsModule.Resolvers = {
   Query: {
     async getAllProjects(_root: unknown, _args: unknown, _context: GraphQLContext) {
       return []
+    },
+    async getAllGeographies(_root: unknown, _args: unknown, context: GraphQLContext) {
+      const records = await context.prisma.geography.findMany()
+      return records.map((record) => record.name)
     }
   }
 }

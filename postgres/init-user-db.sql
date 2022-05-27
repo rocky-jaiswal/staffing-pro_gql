@@ -8,7 +8,8 @@ GRANT ALL PRIVILEGES ON DATABASE auth_service_test TO postgresdev;
 
 CREATE DATABASE staffing_pro_dev;
 CREATE DATABASE staffing_pro_test;
+CREATE DATABASE staffing_pro_shadow;
 
 GRANT ALL PRIVILEGES ON DATABASE staffing_pro_dev TO postgresdev;
 GRANT ALL PRIVILEGES ON DATABASE staffing_pro_test TO postgresdev;
-
+GRANT ALL PRIVILEGES ON DATABASE staffing_pro_shadow TO postgresdev;

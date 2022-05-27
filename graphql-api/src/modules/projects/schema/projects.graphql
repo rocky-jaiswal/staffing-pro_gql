@@ -1,3 +1,7 @@
 type Query {
   getAllProjects: [String!]!
 }
+
+type Query {
+  getAllGeographies: [String!]!
+}

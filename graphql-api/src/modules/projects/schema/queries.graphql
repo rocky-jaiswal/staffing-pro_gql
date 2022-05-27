@@ -1,3 +1,7 @@
 query GetAllProjects {
   getAllProjects
 }
+
+query GetAllGeographies {
+  getAllGeographies
+}
