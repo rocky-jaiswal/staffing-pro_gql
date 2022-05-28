@@ -19,12 +19,14 @@ Entities
   - Attachments
   - Action Log
   - Change / Audit Log
-- Promoted (star)
-- Apply / Approve
-- Alerts
-- Hidden projects (visible by members only / url)
-- Starred projects
+  - Promoted (star)
+  - Hidden (visible by members only / url)
+  - Archived
+
+Actions
 - Create project
+- Apply / Approve for positions
+- Alerts
 - Message project users (alert user)
 
 Search
