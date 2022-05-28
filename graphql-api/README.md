@@ -11,6 +11,7 @@
 - Security (https://www.envelop.dev/plugins/use-generic-auth)
 - Scalars
 - Logging
+- Prisma (DB Migrations / ORM)
 
 Can use dotenv for config
 
